@@ -21,13 +21,7 @@ const App = () => {
 <Home /> 
 </Route>
 
-<Route path="/about">
-<About />
-</Route>
 
-<Route path="/contact">
-<Contact />
-</Route>
 
 <Route path="/login">
 <Login />
