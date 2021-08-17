@@ -1,6 +1,7 @@
 const bcryptjs = require('bcryptjs');
 const jsonwebtoken = require('jsonwebtoken');
 const mongoose = require('mongoose');
+const nodemailer = require('nodemailer')
 
 // Register
 
@@ -127,3 +128,27 @@ const deleteStudent = (req, res, next) =>{
         })    
     }
 
+// node mailer
+
+const transport = nodemailer.createTransport({
+    service: "hotmail",
+    auth: {
+        user: "mrudulwebclues@outlook.com",
+        pass: "TryHarder"
+    }
+});
+
+const options ={
+    from: "mrudulwebclues@outlook.com",
+    to: "mrudul@webcluesinfotec.com",
+    subject: "Welcome to the School",
+    text: "Hello Student, Welcome to our School!"
+};
+
+transporter.sendMail(options, function (err, info){
+    if (err){
+        console.log(err);
+        return;
+    }
+    console.log("Sent: " + info.response);
+})
