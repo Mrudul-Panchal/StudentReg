@@ -1,146 +1,67 @@
-import React, { Component, useState} from 'react';
-import axios from 'axios';
-import { NavLink, useHistory } from 'react-router-dom';
+import React,{Component} from 'react';
+import { Formik, Form, Field } from 'formik';
+import { TextField } from './TextField';
+import * as Yup from 'yup';
 
-const Signup = () => {
-    const history = useHistory();
-    const [user,setUser] = useState({
-        name: "", email: "",  division: "", contact: "", password: "", profpic:""
-    });
+export const Signup = () => {
+  const validate = Yup.object({
+    name: Yup.string()
+      .max(15, 'Must be 15 characters or less')
+      .required('Required'),
+    email: Yup.string()
+      .email('Email is invalid')
+      .required('Email is required'),
+    division: Yup.string()
+      .max(20, 'Must be 20 characters or less')
+      .required('Required'),
+    contact: Yup.number()
+      .max(20, 'Must be 20 characters or less')
+      .required('Required'),
 
-let name,value;
+    password: Yup.string()
+      .min(6, 'Password must be at least 6 charaters')
+      .required('Password is required'),
 
-    const handleInputs = (e) => {
-        console.log(e);
-        name = e.target.name;
-        value = e.target.value;
+      profPic: Yup
+      .mixed()
+      .required("A file is required")
 
-        setUser({...user, [name]:value});
-    }
+    })
+  return (
+    <Formik
+      initialValues={{
+        name: '',
+        email: '',
+        division: '',
+        contact: '',
+        password: '',
+        profPic: ''
+      }}
+      validationSchema={validate}
+      onSubmit={values => {
+        console.log(values)
+      }}
+    >
+      {formik => (
+        <div>
+          <h1 className="my-4 font-weight-bold .display-4">Sign Up</h1>
+          <Form>
+            <TextField label="Name" name="firstName" type="text" />
+            <TextField label="Email" name="email" type="email" />
+            <TextField label="division" name="division" type="text" />
+            <TextField label="Contact" name="contact" type="number" />
+            <TextField label="password" name="password" type="password" />
+            <TextField label="Confirm Password" name="confirmPassword" type="password" />
+            <TextField
+                name="file"
+                component={CustomImageInput}
+                title="Select a file"/>
 
-    const PostData = async (e) => {
-        e.preventDefault();
-
-        const { name, email,  division, contact, password, profPic } = user;
-
-console.log('1');
-
-        const res = await fetch("/register",{
-            method: "POST",
-            headers: {
-                "Content-Type" : "application/json"
-            },
-            body : JSON.stringify({
-                name, email,  division, contact, password, profPic : "basic"
-            })
-        });
-console.log('2');
-        const data = await res.json();
-
-
-        if(data.status === 422 || !data ){
-            window.alert("Invalid Registration");
-            console.log("Invalid Registration");
-        } else {
-            window.alert("Successfully Registered");
-            console.log("Successfully Registered");
-            console.log("10");
-            history.push("/login");
-        }
-        console.log('9');
-    }
-
-console.log('3');
-
-
-    return (
-        <section className='Signup'>
-            <div className="container mt-5">
-                <div className="signup-content">
-                    <div className="signup-form">
-                        <h2 className='form-title'>Sign-up</h2>
-                        <form method="POST" className="register-form" id="register-form">
-
-
-
-                            <div className="form-group">
-                                <label htmlFor="name">
-                                        <i class="zmdi zmdi-account"></i>
-                                </label>
-                                <input type="text" name="name" id="name" autocomplete="off"
-                                value={user.name}
-                                onChange={handleInputs}
-
-                                   placeholder="Your Name"
-                                />
-                            </div>
-
-
-                            <div className="form-group">
-                                <label htmlFor="email">
-                                        <i class="zmdi zmdi-email"></i>
-                                </label>
-                                <input type="email" name="email" id="email" autocomplete="off"
-                                value={user.email}
-                                onChange={handleInputs}
-
-                                   placeholder="Your E-mail"
-                                />
-                            </div>
-
-
-
-                            <div className="form-group">
-                                <label htmlFor="password">
-                                        <i class="zmdi zmdi-lock"></i>
-                                </label>
-                                <input type="password" name="password" id="password" autocomplete="off"
-                                value={user.password}
-                                onChange={handleInputs}
-
-                                   placeholder="Your password"
-                                />
-                            </div>
-
-
-
-                            <div className="form-group">
-                                <label htmlFor="cpassword">
-                                        <i class="zmdi zmdi-lock-outline"></i>
-                                </label>
-                                <input type="password" name="cpassword" id="cpassword" autocomplete="off"
-                                value={user.cpassword}
-                                onChange={handleInputs}
-
-                                   placeholder="Confirm your password"
-                                />
-                                </div>
-
-            
-
-                                <div className="form-group form-button">
-                                    <input type="submit" name="submit" id="submit" className="form-submit"
-                                    value='register' onClick={PostData}
-                                    />
-                            </div>
-
-                            <div className="signup-image">
-                            <figure>
-                                   
-                                    <NavLink to="/login" className="signup-image-link"> 
-                                    <img src="./images/index.jpeg" alt="Login pic" />
-                                    </NavLink>
-                                    </figure>
-                               
-                            </div>
-
-                        </form>
-                    </div>
-              
-                </div>
-            </div>
-        </section>
-    )
+            <button className="btn btn-dark mt-3" type="submit">Register</button>
+            <button className="btn btn-danger mt-3 ml-3" type="reset">Reset</button>
+          </Form>
+        </div>
+      )}
+    </Formik>
+  )
 }
-console.log('4');
-export default Signup 
