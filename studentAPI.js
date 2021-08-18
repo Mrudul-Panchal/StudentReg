@@ -130,7 +130,7 @@ const deleteStudent = (req, res, next) =>{
 
 // node mailer
 
-const transport = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
         user: "mrudulwebclues@outlook.com",
@@ -140,7 +140,7 @@ const transport = nodemailer.createTransport({
 
 const options ={
     from: "mrudulwebclues@outlook.com",
-    to: "mrudul@webcluesinfotec.com",
+    to: email,
     subject: "Welcome to the School",
     text: "Hello Student, Welcome to our School!"
 };
