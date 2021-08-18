@@ -22,6 +22,10 @@ export const Signup = () => {
       .min(6, 'Password must be at least 6 charaters')
       .required('Password is required'),
 
+    confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null],'password must match')
+    .required('Confirm Password is required') ,
+
       profPic: Yup
       .mixed()
       .required("A file is required")
@@ -54,7 +58,7 @@ export const Signup = () => {
             <TextField label="Confirm Password" name="confirmPassword" type="password" />
             <TextField
                 name="file"
-                component={CustomImageInput}
+                component={'CustomImageInput'}
                 title="Select a file"/>
 
             <button className="btn btn-dark mt-3" type="submit">Register</button>
