@@ -39,10 +39,10 @@ const loginUser = async (e) => {
     return (
         <section className='Signup'>
             <div className="container mt-5">
-                <div className="signup-content">
-                    <div className="signup-form">
-                        <h2 className='form-title'>Sign-up</h2>
-                        <form method="POST" className="register-form" id="register-form">
+            <div className="signup-content">
+            <div className="signup-form">
+            <h2 className='form-title'>Sign-up</h2>
+            <form method="POST" className="register-form" id="register-form">
 
 
 
@@ -81,16 +81,16 @@ const loginUser = async (e) => {
                                     <NavLink to="/Signup" className="Login-image-link"> 
                                     <img src="./images/index.jpeg" alt="registeration pic" />
                                     </NavLink>
-                                    </figure>
+                            </figure>
                                
-                            </div>
-
-                        </form>
-                    </div>
-              
-                </div>
             </div>
-        </section>
+
+            </form>
+            </div>
+              
+            </div>
+            </div>
+            </section>
         )
 }
 
