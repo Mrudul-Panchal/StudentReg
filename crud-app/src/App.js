@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react'
+import GoogleLogin from 'react-google-login'
 import {  Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from "./components/Navbar";
@@ -12,7 +13,12 @@ import Logout from './components/Logout';
 
 const App = () => {
     return (
+
+
+
 <>
+
+
 <Navbar />
 
 <Switch>
@@ -45,6 +51,15 @@ const App = () => {
 </Route>
 
 </Switch>
+
+<GoogleLogin 
+            clientID="109864172924-olf4l8gk32v89jhv6jpbccu94khfdg43.apps.googleusercontent.com"
+            buttonText="Login"
+            onSuccess={this.responseGoogle}
+            onFailure={this.responseGoogle}
+            cookiePolicy={'single_host_origin'}
+            />
+ 
 
 </>
 
