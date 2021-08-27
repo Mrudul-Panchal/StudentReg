@@ -21,6 +21,8 @@ const App = () => {
 
 <Navbar />
 
+
+
 <Switch>
 
 <Route exact path="/">

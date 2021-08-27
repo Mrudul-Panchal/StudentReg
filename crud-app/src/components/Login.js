@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-
+import { GoogleLogin } from "react-google-login";
+import axios from "axios";
 
 
 const Login = () => {
@@ -95,4 +96,29 @@ const loginUser = async (e) => {
         )
 }
 
-export default Login
+function Signin() {
+    const googleAuth = async ({profileObj}) => {
+        axios({
+            method: "post",
+            url: "/auth/google/signin",
+            data: {
+                googleId: profileObj.googleId,
+                email: profileObj.email,
+            },
+        })
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log(err));
+    };
+    return(
+        <GoogleLogin
+            clientId="109864172924-olf4l8gk32v89jhv6jpbccu94khfdg43.apps.googleusercontent.com"
+            onSuccess={googleAuth}
+            onFailure={googleAuth}
+            cookiePolicy={"single_host_origin"} 
+        />
+    )
+}
+
+export default Login, Signin;
+
+
