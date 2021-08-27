@@ -3,8 +3,24 @@ import { Formik, Form, Field } from 'formik';
 
 import { TextField } from './TextField';
 import * as Yup from 'yup';
+import { GoogleLogin } from "react-google-login";
+import axios from "axios";
+
 
 export const Signup = () => {
+  const googleAuth = async ({profileObj}) => {
+    axios({
+        method: "post",
+        url: "/auth/google/signin",
+        data: {
+            googleId: profileObj.googleId,
+            email: profileObj.email,
+        },
+    })
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err));
+};
+
   const validate = Yup.object({
     name: Yup.string()
       .max(15, 'Must be 15 characters or less')
@@ -68,5 +84,7 @@ export const Signup = () => {
         </div>
       )}
     </Formik>
+           
+
   )
 }
