@@ -54,14 +54,7 @@ const App = () => {
 
 </Switch>
 
-<GoogleLogin 
-            clientID="109864172924-olf4l8gk32v89jhv6jpbccu94khfdg43.apps.googleusercontent.com"
-            buttonText="Login"
-            onSuccess={this.responseGoogle}
-            onFailure={this.responseGoogle}
-            cookiePolicy={'single_host_origin'}
-            />
- 
+
 
 </>
 

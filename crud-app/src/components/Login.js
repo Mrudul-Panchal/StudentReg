@@ -6,20 +6,30 @@ import axios from "axios";
 
 const Login = () => {
 
-    const googleAuth = async ({profileObj}) => {
-        axios({
-            method: "post",
-            url: "/auth/google/signin",
-            data: {
-                googleId: profileObj.googleId,
-                email: profileObj.email,
-                first_Name: profileObj.givenName,
-                last_name: profileObj.family_name,
-            },
-        })
-        .then((res) => console.log(res.data))
-        .catch((err) => console.log(err));
-    };
+    const clientId = '109864172924-olf4l8gk32v89jhv6jpbccu94khfdg43.apps.googleusercontent.com';
+
+    function Login() {
+        const onSuccess = (res) => {
+            console.log('[Login Success] currentUser:', res.profileObj);
+        };
+        const onFailure = (res) => {
+            console.log('[Login failed] res:', res);
+        };
+        return(
+            <div>
+            <GoogleLogin
+            clientId="109864172924-olf4l8gk32v89jhv6jpbccu94khfdg43.apps.googleusercontent.com"
+            buttonText="Login"
+            onSuccess={onSuccess}
+            onFailure={onFailure}
+            cookiePolicy={"single_host_origin"} 
+            style={{ marginTop: '100px' }}
+            isSignedIn={true}
+        />
+
+            </div>
+        );
+    }
 
     const history = useHistory();
 const [email, setEmail] = useState('');
@@ -101,12 +111,6 @@ const loginUser = async (e) => {
             </div>
 
             </form>
-            <GoogleLogin
-            clientId="109864172924-olf4l8gk32v89jhv6jpbccu94khfdg43.apps.googleusercontent.com"
-            onSuccess={googleAuth}
-            onFailure={googleAuth}
-            cookiePolicy={"single_host_origin"} 
-        />
             </div>
               
             </div>
