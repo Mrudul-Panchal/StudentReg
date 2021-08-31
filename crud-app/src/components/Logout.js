@@ -4,6 +4,22 @@ import { GoogleLogout } from 'react-google-login';
 
 const clientId = '109864172924-olf4l8gk32v89jhv6jpbccu94khfdg43.apps.googleusercontent.com'
 
+function Logout() {
+    const onSuccess = () => {
+        alert('logged out');
+    };
+
+    return(
+        <div>
+            <GoogleLogout 
+            clientId='109864172924-olf4l8gk32v89jhv6jpbccu94khfdg43.apps.googleusercontent.com'
+            buttonText='Logout'
+            onLogoutSuccess={onSuccess}
+            ></GoogleLogout>
+        </div>
+    );
+}
+
 const Logout = () => {
 
     const history = useHistory();
